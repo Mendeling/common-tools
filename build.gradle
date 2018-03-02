@@ -1,0 +1,122 @@
+group 'com.lang.ftd'
+version = '1.0.0'
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'maven'
+
+
+jar {
+	  baseName = 'common-tools'
+	  version =  '0.0.1'
+    from('src/main/java') {
+	    include 'com/lang/ftd/**/scaffold/template/*.txt'
+    }
+}
+
+repositories{
+	
+//	def nexus_host_url = 'http://127.0.0.1:8081'
+//	maven{
+//		url nexus_host_url+'/repository/lang-central'
+//	}
+//	maven{
+//		url nexus_host_url+'/repository/lang_snapshots/'
+//	}
+	mavenCentral()
+}
+
+
+dependencies {
+    // ====== common ======
+	// https://mvnrepository.com/artifact/commons-configuration/commons-configuration
+	compile group: 'commons-configuration', name: 'commons-configuration', version: '1.10'
+	// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
+	// https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils
+	compile group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.3'
+	// https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
+	compile group: 'org.apache.commons', name: 'commons-collections4', version: '4.1'
+	// https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
+	compile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.0'
+	
+	// ====== spring ======
+	// https://mvnrepository.com/artifact/org.springframework/spring-webmvc
+	compile group: 'org.springframework', name: 'spring-webmvc', version: '5.0.3.RELEASE'
+	// https://mvnrepository.com/artifact/org.aspectj/aspectjrt
+	compile group: 'org.aspectj', name: 'aspectjrt', version: '1.8.13'
+
+	
+	// ====== logger ======
+	// https://mvnrepository.com/artifact/log4j/log4j
+	compile group: 'log4j', name: 'log4j', version: '1.2.17'
+	// https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21'
+	// https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+	compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+	// https://mvnrepository.com/artifact/ch.qos.logback/logback-core
+	compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
+	// https://mvnrepository.com/artifact/org.logback-extensions/logback-ext-spring
+	compile group: 'org.logback-extensions', name: 'logback-ext-spring', version: '0.1.4'
+	
+	// ====== database ======
+ 	compile group: 'mysql', name: 'mysql-connector-java', version: '6.0.6'
+    compile 'commons-dbcp:commons-dbcp:1.4'
+	compile group: 'org.mybatis', name: 'mybatis', version: '3.4.5'
+    
+    // ====== spring======
+    // https://mvnrepository.com/artifact/org.springframework/spring-core
+	compile group: 'org.springframework', name: 'spring-core', version: '5.0.2.RELEASE'
+    // https://mvnrepository.com/artifact/org.springframework/spring-beans
+	compile group: 'org.springframework', name: 'spring-beans', version: '5.0.2.RELEASE'
+    // https://mvnrepository.com/artifact/org.springframework.data/spring-data-redis
+	compile group: 'org.springframework.data', name: 'spring-data-redis', version: '2.0.3.RELEASE'
+    
+    
+    
+	// ====== 	lombok======
+	// https://mvnrepository.com/artifact/org.projectlombok/lombok
+	compile group: 'org.projectlombok', name: 'lombok', version: '1.16.20'
+	
+	// ====== 	fastjson======
+	// https://mvnrepository.com/artifact/com.alibaba/fastjson
+	compile group: 'com.alibaba', name: 'fastjson', version: '1.2.45'
+	// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations
+	compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.3'
+	
+
+
+	// ====== guawa======
+    // https://mvnrepository.com/artifact/com.google.guava/guava
+	compile group: 'com.google.guava', name: 'guava', version: '23.0'
+
+
+}
+[compileJava, compileTestJava]*.options*.compilerArgs = ['-Xlint:all']
+[compileJava, javadoc, compileTestJava]*.options*.encoding = 'UTF-8'
+
+javadoc {
+    options.encoding = "UTF-8"
+    options.docEncoding = "UTF-8"
+    options.charSet = "UTF-8"
+}
+test {
+    systemProperties 'property': 'value'
+}
+
+//uploadArchives {
+//    repositories {
+//        mavenDeployer {
+//            snapshotRepository(url: "http://127.0.0.1:8081/repository/lang-snapshots/") {
+//                authentication(userName: "admin", password: "admin123")
+//            }
+//            
+//            repository(url: "http://127.0.0.1:8081/repository/lang-releases/") {
+//                authentication(userName: "admin", password: "admin123")
+//            }
+//            pom.version = "$project.version"
+//            pom.artifactId = "$rootProject.name"
+//            pom.groupId = "$project.group"
+//        }
+//    }
+//}
